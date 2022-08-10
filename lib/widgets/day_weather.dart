@@ -8,6 +8,28 @@ class DayWeather extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(weather.forecast.forecastday.first.day.avghumidity.toString());
+  final hours = weather.forecast.forecastday.first.hour;
+  for (var hour in hours) {
+    print(hour.tempC);
+  }
+
+    // return ListView.builder(
+    //   itemCount: hours.length,
+    //   itemBuilder: (context, index) {
+    //     return ListTile(
+    //       title: Text(hours[index].tempC.toString()),
+    //       leading: const CircleAvatar(backgroundColor: Colors.blue,),
+    //     );
+    //   },
+    // );
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        for (var hour in hours) {
+          Text(hour.tempC.toString()),
+        }
+      ],
+    );
   }
 }
