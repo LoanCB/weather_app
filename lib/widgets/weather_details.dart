@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:weather/pages/home_page.dart';
 import 'dart:math' as math;
 
 import '../models/current_weather.dart';

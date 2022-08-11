@@ -25,27 +25,23 @@ class _CurrentWeatherCityState extends State<CurrentWeatherCity> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         body: SingleChildScrollView(
-      child: Column(
-        children: [
-          FutureBuilder(
-            future: getCurrentWeatherFromApi(widget.city),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (snapshot.hasError) {
-                return Center(
-                  child: Text('error : ${snapshot.error}'),
-                );
-              } else {
-                return WeatherDetails(
-                  weather: snapshot.data,
-                );
-              }
-            },
-          )
-        ],
+      child: FutureBuilder(
+        future: getCurrentWeatherFromApi(widget.city),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('error : ${snapshot.error}'),
+            );
+          } else {
+            return WeatherDetails(
+              weather: snapshot.data,
+            );
+          }
+        },
       ),
     ));
   }

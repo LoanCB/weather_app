@@ -16,6 +16,7 @@ class _ForecastWeatherCityState extends State<ForecastWeatherCity> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blueAccent,
       floatingActionButton: FloatingActionButton(
         child: const FaIcon(Icons.search),
         onPressed: () => setState(() {
@@ -23,31 +24,23 @@ class _ForecastWeatherCityState extends State<ForecastWeatherCity> {
         }),
       ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        body: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                FutureBuilder(
-                  future: getForecastWeatherFromApi(widget.city),
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else if (snapshot.hasError) {
-                      return Center(
-                        child: Text('error : ${snapshot.error} \n\n ${snapshot.stackTrace}', textAlign: TextAlign.center,),
-                      );
-                    } else {
-                      return DayWeather(
-                        weather: snapshot.data,
-                      );
-                    }
-                  },
-                )
-              ],
-            ),
-          ),
+        body: FutureBuilder(
+          future: getForecastWeatherFromApi(widget.city),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.hasError) {
+              return Center(
+                child: Text('error : ${snapshot.error} \n\n ${snapshot.stackTrace}', textAlign: TextAlign.center,),
+              );
+            } else {
+              return DayWeather(
+                weather: snapshot.data,
+              );
+            }
+          },
         ));
   }
 }
